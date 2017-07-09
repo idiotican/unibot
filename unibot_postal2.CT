@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="24">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"unibot 1.0 made by idiotican and kenwood"</Description>
+      <LastState/>
+      <VariableType>auto assembler script</VariableType>
+      <AssemblerScript>{
+unibot
+[ENABLE]
+[DISABLE]
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"b1g hack:"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>008000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>23</ID>
+          <Description>"godmode"</Description>
+          <LastState/>
+          <VariableType>auto assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(INJECT,Core.dll,2B 4D 08 5E 89 08 8B E5 5D) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+label(npc)
+label(player)
+
+newmem:
+
+code:
+  cmp [eax+01C4],1
+  jne npc
+  cmp [eax+01C4],1
+  je player
+
+npc:
+  mov [eax],ecx
+  mov esp,ebp
+  pop ebp
+  jmp return
+
+player:
+  nop
+  mov esp,ebp
+  pop ebp
+  jmp return
+
+INJECT+04:
+  jmp newmem
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT+04:
+  db 89 08 8B E5 5D
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+"Core.dll"+4F151:
+  mov [eax],ecx
+  mov esp,ebp
+  pop ebp
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>20</ID>
+          <Description>"unlimited ammo"</Description>
+          <LastState/>
+          <VariableType>auto assembler script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(INJECT,Core.dll,29 07 8B 45 0C 8B 0F 5F 5E 89 08)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [edi],64
+  mov ecx,[edi]
+  pop edi
+  pop esi
+  mov [eax],ecx
+  jmp return
+
+INJECT+05:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT+05:
+  db 8B 0F 5F 5E 89 08
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+"Core.dll"+4FC5C:
+  mov ecx,[edi]
+  pop edi
+  pop esi
+  mov [eax],ecx
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>25</ID>
+          <Description>"always 1000 health"</Description>
+          <LastState/>
+          <VariableType>auto assembler script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(INJECT,Core.dll,2B 4D 08 5E 89 08 8B E5 5D) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+label(npc)
+label(player)
+
+newmem:
+
+code:
+  cmp [eax+01C4],1
+  jne npc
+  cmp [eax+01C4],1
+  je player
+
+npc:
+  mov [eax],ecx
+  mov esp,ebp
+  pop ebp
+  jmp return
+
+player:
+  mov [eax],(int)1000
+  mov esp,ebp
+  pop ebp
+  jmp return
+
+INJECT+04:
+  jmp newmem
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT+04:
+  db 89 08 8B E5 5D
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+"Core.dll"+4F151:
+  mov [eax],ecx
+  mov esp,ebp
+  pop ebp
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>enjoy
+</Comments>
+</CheatTable>
